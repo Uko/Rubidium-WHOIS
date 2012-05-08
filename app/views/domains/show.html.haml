@@ -1,1 +1,19 @@
 %h2= @domain
+
+- if @free
+  %p Domain is free!
+  %p Hurry up and register it now!
+- else
+  %p Domain is taken!
+  %dl
+    %dt Expires:
+    %dd
+      = @expiration
+      %span.detail= "(in #{@time_left})"
+    %dt Name Servers:
+    %dd
+      %ul
+      - @nss.each do |ns|
+        %li= ns
+    %dt.contacts Contacts
+    %dd= @contact
