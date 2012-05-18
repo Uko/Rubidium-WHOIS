@@ -2,7 +2,7 @@ Whois::Application.routes.draw do
 	
   root :to =>  "domains#new"
 
-	match "/:domain" => "domains#show", :domain => /[a-zA-Z.-]+/
+	match "/:zone/*domain" => "domains#show"
 	
   # The priority is based upon order of creation:
   # first created -> highest priority.

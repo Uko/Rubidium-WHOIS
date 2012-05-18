@@ -1,5 +1,6 @@
 Given /^I have queried "(.*?)" domain$/ do |arg1|
-  visit("/#{arg1}")
+	request = arg1.split('.').reverse.join('/')
+  visit("/#{request}")
 end
 
 Then /^I should see "(.*?)" as a header$/ do |arg1|

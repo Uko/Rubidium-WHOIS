@@ -1,19 +1,34 @@
-%h2= @domain
-
+%h2.domain= @domain
+%p#state.domain{:class => @free_class}= "Domain is #{@free_class}!"
+.separator
 - if @free
-  %p Domain is free!
   %p Hurry up and register it now!
 - else
-  %p Domain is taken!
-  %dl
+  %dl.domain
     %dt Expires:
     %dd
       = @expiration
       %span.detail= "(in #{@time_left})"
+    - @contacts.each do |contact, data|
+      %dt.contact
+        = contact
+        %svg.triangle{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :width => "15px", :height => "15px" }
+          %polygon{:points =>'0,0 0,10 10,5', :fill => '#000000'}/
+      %dd
+        - unless data.nil?
+          %dl
+            -add_list_section "Name:", data[:name]
+            -add_list_section "Organization:", data[:organization]
+            -add_list_section "Address:", data[:address]
+            -add_list_section "City:", data[:city]
+            -add_list_section "Zip Code:", data[:zip]
+            -add_list_section "State:", data[:state]
+            -add_list_section "Сountry:", "#{data[:country]}(#{data[:country_code]})"
+            -add_list_section "Phone:", data[:phone]
+            -add_list_section "Fax:", data[:fax]
+            -add_list_section "Email:", data[:email]
+        - else
+          %p No data available
     %dt Name Servers:
-    %dd
-      %ul
-      - @nss.each do |ns|
-        %li= ns
-    %dt.contacts Contacts
-    %dd= @contact
+    - @nss.each do |ns|
+      %dd= ns

@@ -1,0 +1,119 @@
+// Place all the styles related to the Domains controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$system-font: Consolas, monaco, monospace
+
+=rounded-corners($amount)
+	border-radius: $amount
+	-moz-border-radius: $amount
+	-webkit-border-radius: $amount
+	
+=rotate($degree)
+	-moz-transform: rotate($degree)
+	-webkit-transform: rotate($degree)
+	-o-transform: rotate($degree)
+	-ms-transform: rotate($degree)
+
+h2.domain
+	margin:
+		top: 0px
+	float: left
+	font:
+		size: 170%
+		
+#state.domain
+	float: right
+	padding:
+		top: 5px
+		bottom: 2px
+		left: 6px
+		right: 6px
+	margin: 0px
+	font:
+		family: $system-font
+		weight: bold
+	+rounded-corners(5px)
+	border:
+		width: 2px
+		style: groove ridge ridge groove
+
+#state.domain.free
+	color: #444
+	background:
+		color: LawnGreen
+	border:
+		color: YellowGreen
+	
+#state.domain.taken
+	color: White
+	background:
+		color: Red
+	border:
+		color: Crimson
+		
+	
+dl.domain
+	
+	dt
+		width: 200px
+		padding: 5px
+		float: left
+		clear: left
+		text-align: right
+		font:
+			weight: bold
+	
+	dd
+		padding: 5px
+		margin:
+			left: 230px
+	
+	span.detail
+		color: Gray
+		
+	dt.contact
+		float: none
+		cursor: pointer
+		position: relative
+		left: 16px
+		
+		&:hover
+			text-decoration: underline
+				
+		.triangle
+			position: relative
+			left: 27px
+			vertical-align: middle 
+			
+		&.open
+			.triangle
+				+rotate(90deg)
+				left: 23px
+
+		
+	dt.contact + dd
+		margin:
+			left: 0px
+		padding: 0px
+			
+		dl
+			margin:
+				top: 0px
+				
+			dt
+				font:
+					weight: normal
+				padding:
+					top: 2px
+					bottom: 2px
+				
+			dd
+				padding:
+					top: 2px
+					bottom: 2px
+					
+		p
+			margin:
+				left: 234px
+				top: 0px
