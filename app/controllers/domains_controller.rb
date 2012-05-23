@@ -2,6 +2,13 @@ include ActionView::Helpers::DateHelper
 
 class DomainsController < ApplicationController
   def show
+		if params[:zone].nil?
+			if params[:domain_request].nil?
+				redirect_to :action => :new
+			else
+				redirect_to "/" << params[:domain_request].split('.').reverse.join('/')
+			end
+		end
 		dns = "#{params[:domain].split('/').reverse.join('.')}.#{params[:zone]}"
 		w = Whois::Client.new
 		r = w.query(dns)
