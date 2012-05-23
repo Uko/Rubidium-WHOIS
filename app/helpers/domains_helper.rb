@@ -1,3 +1,5 @@
+include ActionView::Helpers::DateHelper
+
 module DomainsHelper
 	
 	def add_list_section(section, data)
@@ -7,12 +9,27 @@ module DomainsHelper
 		end
 	end
 	
-	def contacts
-		{
-			:registrant_contact => "Registrant",
-			:admin_contact => "Admin",
-			:technical_contact => "Technical"
-		}
+	def contact_of_type(type)
+		case type
+		  when 1
+		    "Registrant"
+		  when 2
+				"Admin"
+			when 3
+				"Tech"
+		end
+	end
+	
+	def label_type
+		@r.available? ? "label-success" : "label-important"
+	end
+	
+	def date_of(ugly_date)
+		ugly_date.strftime("%-d %B %Y")
+	end
+	
+	def time_till(date)
+		time_ago_in_words(date)
 	end
 	
 end
