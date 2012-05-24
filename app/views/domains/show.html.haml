@@ -1,22 +1,47 @@
-%h2.domain
-  = @domain
-  %span.label{:class => label_type}= "Domain is #{@free_class}!"
-- if @free
-  %p Hurry up and register it now!
-- else
-  .row
-    .span6
+.hero-unit
+  %h1= @domain
+  %p
+    %span.label{:class => label_type}= "Domain is #{@free_class}!"
+    - if @free
+      Hurry up and register it now!
+    - else
+      See the information below to find out more about the domain owner and status.
+  %p
+    - unless @free
+      =link_to "Visit home page of #{@r.domain}", "http://#{@r.domain}", :class => "btn btn-primary btn-large"
+    - else
+      =link_to "Here can be your registrars link!", "#", :class => "btn btn-primary btn-large"
+    
+- unless @free
+  .row-fluid
+    .span4
+      %h2 Domain Status
       -puts @r.expires_on.to_s
       %dl.dl-horizontal
         %dt Expires
+        %dd= date_of @r.expires_on
         %dd
-          =date_of @r.expires_on
           %em= "(in #{time_till @r.expires_on})"
-        %dt Name Servers
+        %dt Created On
+        %dd= date_of @r.created_on
+        %dt Updated On
+        %dd= date_of @r.updated_on
+        %dt Status
+        - @r.status.each do |status|
+          %dd= status
+    .span3
+      %h2 Name Servers
+      %ul.unstyled
         - @r.nameservers.each do |ns|
-          %dd= ns
-    .span4
-      %h3 Contacts
+          %li= ns.name.downcase
+    .span5
+      %h2 Contacts
+      - unless @r.registrar.nil?
+        %dl.dl-horizontal
+          -add_list_section "Registrar name", @r.registrar.name
+          -add_list_section "Registrar organization", @r.registrar.organization
+          %dt Registrar URL
+          %dd= link_to @r.registrar.url
       .tabbable
         %ul.nav.nav-tabs
           - @r.contacts.each_with_index do |contact, index|

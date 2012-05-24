@@ -7,9 +7,9 @@
     = stylesheet_link_tag    "application"
     = csrf_meta_tags
   %body
-    .container
-      .row
-        .span10.offset1
+    .container-fluid
+      .row-fluid
+        #content.span12
           = yield
       
     = javascript_include_tag "application"
