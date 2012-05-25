@@ -4,10 +4,22 @@
     %title Whois
     %meta{:charset => "utf-8"}
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    = stylesheet_link_tag    "application"
+    = stylesheet_link_tag "application"
     = csrf_meta_tags
   %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = link_to "Rubidium WHOIS", root_url, :class => "brand"
+          %ul.nav
+            - menu_item "Lookup Domain", 'domains', 'new'
     .container-fluid
+      .row-fluid
+        .span12
+          -if flash.key? :error and not flash[:error].blank?
+            .alert.alert-error
+              %button.close{'data-dismiss' => "alert"} ×
+              = flash[:error]
       .row-fluid
         #content.span12
           = yield

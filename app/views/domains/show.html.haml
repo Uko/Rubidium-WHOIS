@@ -1,18 +1,18 @@
 .hero-unit
-  %h1= @domain
+  %h1= @r.domain
   %p
-    %span.label{:class => label_type}= "Domain is #{@free_class}!"
-    - if @free
+    %span.label{:class => label_type}= "Domain is #{@r.available? ? 'free' : 'taken'}!"
+    - if @r.available?
       Hurry up and register it now!
     - else
       See the information below to find out more about the domain owner and status.
   %p
-    - unless @free
+    - unless @r.available?
       =link_to "Visit home page of #{@r.domain}", "http://#{@r.domain}", :class => "btn btn-primary btn-large"
     - else
       =link_to "Here can be your registrars link!", "#", :class => "btn btn-primary btn-large"
     
-- unless @free
+- unless @r.available?
   .row-fluid
     .span4
       %h2 Domain Status
@@ -27,8 +27,11 @@
         %dt Updated On
         %dd= date_of @r.updated_on
         %dt Status
-        - @r.status.each do |status|
-          %dd= status
+        - if @r.status.kind_of?(Array)
+          - @r.status.each do |status|
+            %dd= status
+        - else
+          %dd= @r.status
     .span3
       %h2 Name Servers
       %ul.unstyled
