@@ -14,12 +14,10 @@
           %ul.nav
             - menu_item "Lookup Domain", 'domains', 'new'
     .container-fluid
-      .row-fluid
-        .span12
-          -if flash.key? :error and not flash[:error].blank?
-            .alert.alert-error
-              %button.close{'data-dismiss' => "alert"} ×
-              = flash[:error]
+      - if flash.key? :error and not flash[:error].blank?
+        .alert.alert-error
+          %button.close{'data-dismiss' => "alert"} ×
+          = flash[:error]
       .row-fluid
         #content.span12
           = yield

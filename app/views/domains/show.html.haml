@@ -39,12 +39,6 @@
           %li= ns.name.downcase
     .span5
       %h2 Contacts
-      - unless @r.registrar.nil?
-        %dl.dl-horizontal
-          -add_list_section "Registrar name", @r.registrar.name
-          -add_list_section "Registrar organization", @r.registrar.organization
-          %dt Registrar URL
-          %dd= link_to @r.registrar.url
       .tabbable
         %ul.nav.nav-tabs
           - @r.contacts.each_with_index do |contact, index|
@@ -56,3 +50,11 @@
             -unless contact.nil?
               .tab-pane{:class => ("active" if index == 0), :id => contact_of_type(contact.type).downcase}
                 =render :partial => "contact", :object => contact
+      - unless @r.registrar.nil?
+        %dl
+          -add_list_section "Registrar name", @r.registrar.name
+          -add_list_section "Registrar organization", @r.registrar.organization
+          %dt Registrar URL
+          %dd= link_to @r.registrar.url
+.well                
+  = link_to "Lookup another domain", search_domain_path, :class => "btn btn-inverse"
