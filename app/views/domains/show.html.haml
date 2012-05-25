@@ -14,10 +14,10 @@
     
 - unless @r.available?
   .row-fluid
-    .span4
-      %h2 Domain Status
+    .span3
+      %h2 Status
       -puts @r.expires_on.to_s
-      %dl.dl-horizontal
+      %dl
         %dt Expires
         %dd= date_of @r.expires_on
         %dd
@@ -32,8 +32,8 @@
             %dd= status
         - else
           %dd= @r.status
-    .span3
-      %h2 Name Servers
+    .span4
+      %h2 Nameservers
       %ul.unstyled
         - @r.nameservers.each do |ns|
           %li= ns.name.downcase

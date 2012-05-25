@@ -6,4 +6,13 @@ module ApplicationHelper
 		end
 	end
 	
+	def recent_domains
+		domains = session[:recent_domains]
+		if domains.nil? or domains.empty? or not domains.is_a? Array
+			nil
+		else
+			domains
+		end
+	end
+	
 end

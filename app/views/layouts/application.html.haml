@@ -19,7 +19,16 @@
           %button.close{'data-dismiss' => "alert"} ×
           = flash[:error]
       .row-fluid
-        #content.span12
+        .span3
+          .well.sidebar-nav
+            - unless recent_domains.nil?
+              %ul.nav.nav-list
+                %li.nav-header Recent Domains
+                - recent_domains.each do |domain|
+                  %li
+                    = link_to domain, :controller => 'domains', :action => 'create', :domain_request => domain
+            %p.copy Copyright © 2012 Yuriy Tymchuk
+        .span9
           = yield
       
     = javascript_include_tag "application"
