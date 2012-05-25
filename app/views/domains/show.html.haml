@@ -14,6 +14,25 @@
     
 - unless @r.available?
   .row-fluid
+    .span5
+      %h2 Contacts
+      - unless @r.registrar.nil?
+        %dl
+          -add_list_section "Registrar name", @r.registrar.name
+          -add_list_section "Registrar organization", @r.registrar.organization
+          %dt Registrar URL
+          %dd= link_to @r.registrar.url
+      .tabbable
+        %ul.nav.nav-tabs
+          - @r.contacts.each_with_index do |contact, index|
+            -unless contact.nil?
+              %li{:class => ("active" if index == 0)}
+                =link_to contact_of_type(contact.type), "\##{contact_of_type(contact.type).downcase}", 'data-toggle' => "tab"
+        .tab-content
+          - @r.contacts.each_with_index do |contact, index|
+            -unless contact.nil?
+              .tab-pane{:class => ("active" if index == 0), :id => contact_of_type(contact.type).downcase}
+                =render :partial => "contact", :object => contact
     .span3
       %h2 Status
       -puts @r.expires_on.to_s
@@ -37,24 +56,5 @@
       %ul.unstyled
         - @r.nameservers.each do |ns|
           %li= ns.name.downcase
-    .span5
-      %h2 Contacts
-      .tabbable
-        %ul.nav.nav-tabs
-          - @r.contacts.each_with_index do |contact, index|
-            -unless contact.nil?
-              %li{:class => ("active" if index == 0)}
-                =link_to contact_of_type(contact.type), "\##{contact_of_type(contact.type).downcase}", 'data-toggle' => "tab"
-        .tab-content
-          - @r.contacts.each_with_index do |contact, index|
-            -unless contact.nil?
-              .tab-pane{:class => ("active" if index == 0), :id => contact_of_type(contact.type).downcase}
-                =render :partial => "contact", :object => contact
-      - unless @r.registrar.nil?
-        %dl
-          -add_list_section "Registrar name", @r.registrar.name
-          -add_list_section "Registrar organization", @r.registrar.organization
-          %dt Registrar URL
-          %dd= link_to @r.registrar.url
 .well                
   = link_to "Lookup another domain", search_domain_path, :class => "btn btn-inverse"
