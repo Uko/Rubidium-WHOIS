@@ -52,3 +52,5 @@ module Whois
     config.assets.version = '1.0'
   end
 end
+
+VERSION = '1.0.0'
