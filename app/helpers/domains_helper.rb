@@ -3,9 +3,17 @@ include ActionView::Helpers::DateHelper
 module DomainsHelper
 	
 	def add_list_section(section, data)
-		if not data.nil? and not data.empty?
-			haml_tag :dt, section
-			haml_tag :dd, data
+		if not data.nil?
+			if data.is_a? String and not data.empty?
+				haml_tag :dt, section
+				haml_tag :dd, data
+			elsif data.is_a? Array and not data.empty?
+				haml_tag :dt, section
+				data.each { |item| haml_tag :dd, item }
+			elsif data.is_a? Time
+				haml_tag :dt, section
+				haml_tag :dd, date_of(data)
+			end
 		end
 	end
 	

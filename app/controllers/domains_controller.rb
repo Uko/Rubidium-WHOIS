@@ -1,9 +1,8 @@
 class DomainsController < ApplicationController
   def show
-		dns = "#{params[:domain].split('/').reverse.join('.')}.#{params[:zone]}"
+		@dns = "#{params[:domain].split('/').reverse.join('.')}.#{params[:zone]}"
 		w = Whois::Client.new
-		@r = w.query(dns)
-		@r.domain ||= dns
+		@r = w.query(@dns)
 		domains = session[:recent_domains]
 		if domains.nil? or domains.empty? or not domains.is_a? Array
 			session[:recent_domains] = [@r.domain]
