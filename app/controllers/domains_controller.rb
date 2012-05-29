@@ -17,10 +17,11 @@ class DomainsController < ApplicationController
 		if not params.key? :domain_request or params[:domain_request].blank?
 			redirect_to :action => :new
 		else
-			unless (params[:domain_request].strip =~ /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}$/ix).nil?
-				redirect_to "/domains/" << params[:domain_request].downcase.split('.').reverse.join('/')
+			domain = params[:domain_request].strip
+			unless (domain =~ /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}$/ix).nil?
+				redirect_to "/domains/" << domain.downcase.split('.').reverse.join('/')
 			else
-				flash[:error] = "\"#{params[:domain_request].strip}\" is not a valid domain name"
+				flash[:error] = "\"#{domain}\" is not a valid domain name"
 				redirect_to :action => :new
 			end
 		end
