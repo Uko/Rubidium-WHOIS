@@ -46,7 +46,7 @@ Whois::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
   # config.threadsafe!
@@ -57,4 +57,9 @@ Whois::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+	config.middleware.use ExceptionNotifier,
+	  :email_prefix => "[RB-Whois] ",
+	  :sender_address => %{"Exception Notifier" <#{ENV['EXCEPTION_SENDER']}>},
+	  :exception_recipients => [ENV['EXCEPTION_RECEPIENT']]
 end

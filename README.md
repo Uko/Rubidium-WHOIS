@@ -12,6 +12,10 @@ Frameworks/Libs
 Changelog
 ---------
 
+###v1.0.2
+
+Added [exception_notification](https://github.com/smartinez87/exception_notification), that should send mail when an exception occurs.
+
 ###v1.0.1
 
 Improves stability, checks for `nil` values of whois record properties. The whois gem source now moved to a git repo.
