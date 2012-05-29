@@ -35,7 +35,6 @@
                 =render :partial => "contact", :object => contact
     .span3
       %h2 Status
-      -puts @r.expires_on.to_s
       %dl
         %dt Expires
         %dd= date_of @r.expires_on

@@ -12,7 +12,6 @@ class DomainsController < ApplicationController
 			domains.insert 0, @r.domain
 			session[:recent_domains] = domains[0, 10]
 		end
-		puts session[:recent_domains]
   end
 
 	def create
