@@ -13,12 +13,12 @@
           = link_to "Rubidium WHOIS", root_url, :class => "brand"
           %ul.nav
             - menu_item "Lookup Domain", 'domains', 'new'
-    .container-fluid
+    .container
       - if flash.key? :error and not flash[:error].blank?
         .alert.alert-error
           %button.close{'data-dismiss' => "alert"} ×
           = flash[:error]
-      .row-fluid
+      .row
         .span9
           = yield
         .span3

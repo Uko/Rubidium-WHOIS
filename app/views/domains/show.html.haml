@@ -13,8 +13,21 @@
       =link_to "Here can be your registrars link!", "#", :class => "btn btn-primary btn-large"
     
 - unless @r.available?
-  .row-fluid
-    .span5
+  .row
+
+    .span2
+      %h2 Status
+      %dl
+        -unless @r.expires_on.nil?
+          %dt Expires
+          %dd= date_of @r.expires_on
+          %dd
+            %em= "(in #{time_till @r.expires_on})"
+        - add_list_section "Created On", @r.created_on
+        - add_list_section "Updated On", @r.updated_on
+        - add_list_section "Status", @r.status  
+
+    .span4
       %h2 Contacts
       - unless @r.registrar.nil?
         %dl
@@ -32,19 +45,8 @@
               .collapse.accordion-body{:id => contact_of_type(contact.type).downcase+index.to_s}
                 .accordion-inner
                   =render :partial => "contact", :object => contact
-    .span3
-      %h2 Status
-      %dl
-        -unless @r.expires_on.nil?
-          %dt Expires
-          %dd= date_of @r.expires_on
-          %dd
-            %em= "(in #{time_till @r.expires_on})"
-        - add_list_section "Created On", @r.created_on
-        - add_list_section "Updated On", @r.updated_on
-        - add_list_section "Status", @r.status
 
-    .span4
+    .span3
       %h2 Nameservers
       %ul.unstyled
         - @r.nameservers.each do |ns|
