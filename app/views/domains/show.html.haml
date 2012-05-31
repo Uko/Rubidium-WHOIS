@@ -23,17 +23,15 @@
           - unless @r.registrar.url.nil?
             %dt Registrar URL
             %dd= link_to @r.registrar.url
-      .tabbable
-        %ul.nav.nav-tabs
-          - @r.contacts.each_with_index do |contact, index|
-            -unless contact.nil?
-              %li{:class => ("active" if index == 0)}
-                =link_to contact_of_type(contact.type), "\##{contact_of_type(contact.type).downcase+index.to_s}", 'data-toggle' => "tab"
-        .tab-content
-          - @r.contacts.each_with_index do |contact, index|
-            - unless contact.nil?
-              .tab-pane{:class => ("active" if index == 0), :id => contact_of_type(contact.type).downcase+index.to_s}
-                =render :partial => "contact", :object => contact
+      .accordion#contacts
+        - @r.contacts.each_with_index do |contact, index|
+          -unless contact.nil?
+            .accordion-group
+              .accordion-heading
+                = link_to contact_of_type(contact.type), "\##{contact_of_type(contact.type).downcase+index.to_s}", :class => "accordion-toggle", 'data-toggle' => "collapse", 'data-parent' => "#contacts"
+              .collapse.accordion-body{:id => contact_of_type(contact.type).downcase+index.to_s}
+                .accordion-inner
+                  =render :partial => "contact", :object => contact
     .span3
       %h2 Status
       %dl
