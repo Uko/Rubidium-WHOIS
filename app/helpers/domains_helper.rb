@@ -6,7 +6,7 @@ module DomainsHelper
 		if not data.nil?
 			if data.is_a? String and not data.empty?
 				haml_tag :dt, section
-				haml_tag :dd, data
+				haml_tag :dd, data.force_encoding("UTF-8")
 			elsif data.is_a? Array and not data.empty?
 				haml_tag :dt, section
 				data.each { |item| haml_tag :dd, item }

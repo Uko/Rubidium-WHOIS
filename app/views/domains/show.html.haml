@@ -28,11 +28,11 @@
           - @r.contacts.each_with_index do |contact, index|
             -unless contact.nil?
               %li{:class => ("active" if index == 0)}
-                =link_to contact_of_type(contact.type), "\##{contact_of_type(contact.type).downcase}", 'data-toggle' => "tab"
+                =link_to contact_of_type(contact.type), "\##{contact_of_type(contact.type).downcase+index.to_s}", 'data-toggle' => "tab"
         .tab-content
           - @r.contacts.each_with_index do |contact, index|
-            -unless contact.nil?
-              .tab-pane{:class => ("active" if index == 0), :id => contact_of_type(contact.type).downcase}
+            - unless contact.nil?
+              .tab-pane{:class => ("active" if index == 0), :id => contact_of_type(contact.type).downcase+index.to_s}
                 =render :partial => "contact", :object => contact
     .span3
       %h2 Status
