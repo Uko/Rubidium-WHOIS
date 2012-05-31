@@ -1,43 +1,43 @@
 .hero-unit
-  %h1= @r.domain || @dns
+  %h1= @dns
   %p
-    %span.label{:class => label_type}= "Domain is #{@r.available? ? 'free' : 'taken'}!"
-    - if @r.available?
+    %span.label{:class => label_type}= "Domain is #{@record.available? ? 'free' : 'taken'}!"
+    - if @record.available?
       Hurry up and register it now!
     - else
       See the information below to find out more about the domain owner and status.
   %p
-    - unless @r.available?
-      =link_to "Visit home page of #{@r.domain}", "http://#{@r.domain}", :class => "btn btn-primary btn-large", :target => "_blank"
+    - unless @record.available?
+      =link_to "Visit home page of #{@dns}", "http://#{@dns}", :class => "btn btn-primary btn-large", :target => "_blank"
     - else
       =link_to "Here can be your registrars link!", "#", :class => "btn btn-primary btn-large"
     
-- unless @r.available?
+- unless @record.available?
   .row
 
     .span2
       %h2 Status
       %dl
-        -unless @r.expires_on.nil?
+        -unless @record.expires_on.nil?
           %dt Expires
-          %dd= date_of @r.expires_on
+          %dd= date_of @record.expires_on
           %dd
-            %em= "(in #{time_till @r.expires_on})"
-        - add_list_section "Created On", @r.created_on
-        - add_list_section "Updated On", @r.updated_on
-        - add_list_section "Status", @r.status  
+            %em= "(in #{time_till @record.expires_on})"
+        - add_list_section "Created On", @record.created_on
+        - add_list_section "Updated On", @record.updated_on
+        - add_list_section "Status", @record.status  
 
     .span4
       %h2 Contacts
-      - unless @r.registrar.nil?
+      - unless @record.registrar.nil?
         %dl
-          - add_list_section "Registrar name", @r.registrar.name
-          - add_list_section "Registrar organization", @r.registrar.organization
-          - unless @r.registrar.url.nil?
+          - add_list_section "Registrar name", @record.registrar.name
+          - add_list_section "Registrar organization", @record.registrar.organization
+          - unless @record.registrar.url.nil?
             %dt Registrar URL
-            %dd= link_to @r.registrar.url
+            %dd= link_to @record.registrar.url
       .accordion#contacts
-        - @r.contacts.each_with_index do |contact, index|
+        - @record.contacts.each_with_index do |contact, index|
           -unless contact.nil?
             .accordion-group
               .accordion-heading
@@ -49,7 +49,7 @@
     .span3
       %h2 Nameservers
       %ul.unstyled
-        - @r.nameservers.each do |ns|
+        - @record.nameservers.each do |ns|
           %li= ns.name.downcase
 .well                
   = link_to "Lookup another domain", search_domain_path, :class => "btn btn-inverse"

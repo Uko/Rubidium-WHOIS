@@ -29,7 +29,7 @@ module DomainsHelper
 	end
 	
 	def label_type
-		@r.available? ? "label-success" : "label-important"
+		@record.available? ? "label-success" : "label-important"
 	end
 	
 	def date_of(ugly_date)
