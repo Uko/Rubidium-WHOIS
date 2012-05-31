@@ -12,6 +12,12 @@ Frameworks/Libs
 Changelog
 ---------
 
+###v.1.1.0
+
+Changed contact's representation to accordion instead of tabular. Moved _status_ info before _contacts_. Set non-fluid grid view.
+
+whois gem updated to version with pretty good ua domains parser.
+
 ###v1.0.2
 
 Added [exception_notification](https://github.com/smartinez87/exception_notification), that should send mail when an exception occurs.
