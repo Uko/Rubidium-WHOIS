@@ -3,10 +3,7 @@ require 'spec_helper'
 describe DomainsController do
 
   describe "GET 'show'" do
-    it "returns http success" do
-      get 'show'
-      response.should be_success
-    end
+    it "returns http success"
   end
 
   describe "GET 'new'" do
