@@ -2,26 +2,32 @@ require 'spec_helper'
 
 describe DomainsController do
 
-  describe "show action." do
+RSpec.configure do |config|
+	config.add_setting :domains, :default =>  [
+		{
+			:plain => 'google.com',
+			:path => '/com/google',
+			:params => {:zone => 'com', :domain => 'google'}
+		},
+		{
+			:plain => 'google.com.ua',
+			:path => '/ua/com/google',
+			:params => {:zone => 'ua', :domain => 'com/google'}	
+		}
+	]
 	
+end
+
+  describe "show action." do
+		
 		describe "routing functionality" do
+		
+			RSpec.configuration.domains.each do |domain|
 			
-			it "should match /domains/com/google as domains#show, zone=>com, domain=>google" do
-				{:get => '/domains/com/google'}.should route_to(
-					:controller => 'domains',
-					:action => 'show',
-					:zone => 'com',
-					:domain => 'google'
-				)
-			end
+				it "should match /domains#{domain[:path]} as domains#show, zone=>#{domain[:params][:zone]}, domain=>#{domain[:params][:domain]}" do
+					{:get => '/domains'+domain[:path]}.should route_to( {:controller => 'domains', :action => 'show'}.merge domain[:params] )
+				end
 			
-			it "should match /com/ua/google as domains#show, zone=>ua, domain=>com/google" do
-				{:get => '/domains/ua/com/google'}.should route_to(
-					:controller => 'domains',
-					:action => 'show',
-					:zone => 'ua',
-					:domain => 'com/google'
-				)
 			end
 			
 			it "should not route single words as domain, eg: google" do
@@ -30,35 +36,38 @@ describe DomainsController do
 			
 		end
 		
-		describe "dns re-building" do
+		RSpec.configuration.domains.each do |domain|
+		
+			context "#{domain[:plain]} domain" do
 			
-			it "should build 'google.com' from #show, zone=>com, domain=>google" do
-				get :show, :zone => 'com', :domain => 'google'
-				dns = "google.com"
-				assigns(:dns).should == dns
-			end
+				before(:each) do
+					@record = double("Whois::Record", :domain => domain[:plain])
+				end
 			
-			it "should build 'google.com.ua' from /ua/com/google" do
-				get :show, :zone => 'ua', :domain => 'com/google'
-				dns = "google.com.ua"
-				assigns(:dns).should == dns
-			end
-			
+				it "should build '#{domain[:plain]}' from #show, zone=>#{domain[:params][:zone]}, domain=>#{domain[:params][:domain]}" do
+					get :show, domain[:params]
+					assigns(:dns).should == domain[:plain]
+				end
+		
+				it "should querry '#{domain[:plain]}'" do
+					Whois.should_receive(:query).with(domain[:plain])
+					get :show, domain[:params]
+				end
+				
+				it "should select a `show` template for renderind" do
+					get :show, domain[:params]
+					response.should render_template('show')
+				end
+				
+				it "should make a record of '#{domain[:plain]}' availeble for a template" do
+					Whois.should_receive(:query).with(domain[:plain]).and_return(@record)
+					get :show, domain[:params]
+					assigns(:record).should == @record
+				end
+				
+			end	
+		
 		end
-		
-		describe "dns query" do
-		
-			it "should querry 'google.com'" do
-				Whois.should_receive(:query).with("google.com")
-				get :show, :zone => 'com', :domain => 'google'
-			end
-		
-			it "should querry 'google.com.ua'" do
-				Whois.should_receive(:query).with("google.com.ua")
-				get :show, :zone => 'ua', :domain => 'com/google'
-			end
-		
-		end	
 		
     it "returns http success"
   end
