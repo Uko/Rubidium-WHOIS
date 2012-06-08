@@ -65,6 +65,58 @@ end
 					assigns(:record).should == @record
 				end
 				
+				describe "error handling." do
+					
+					context "On ConnectionError:" do
+						before(:each) do
+							Whois.should_receive(:query).and_raise(Whois::ConnectionError)
+						end
+						
+						it "should redirect to domain query" do
+							get :show, domain[:params]
+							response.should redirect_to(:controller=>'domains', :action => 'new', :params => {:domain_request => domain[:plain]})
+						end
+						
+						it "should flash something" do
+							get :show, domain[:params]
+							flash[:alert].should == "There was a problem with a connection to WHOIS server. Please try again in a moment"
+						end	
+					end
+					
+					context "On Timeout Error:" do
+						before(:each) do
+							Whois.should_receive(:query).and_raise(Timeout::Error)
+						end
+						
+						it "should redirect to domain query" do
+							get :show, domain[:params]
+							response.should redirect_to(:controller=>'domains', :action => 'new', :params => {:domain_request => domain[:plain]})
+						end
+						
+						it "should flash something" do
+							get :show, domain[:params]
+							flash[:alert].should == "The WHOIS server was not responding for a long time. Please try again in a moment"
+						end
+					end
+					
+					context "On ServerNotFound:" do
+						before(:each) do
+							Whois.should_receive(:query).and_raise(Whois::ServerNotFound)
+						end
+						
+						it "should redirect to domain query" do
+							get :show, domain[:params]
+							response.should redirect_to(:controller=>'domains', :action => 'new')
+						end
+						
+						it "should flash something" do
+							get :show, domain[:params]
+							flash[:error].should == "The domain #{domain[:plain]} is illegal or not supported with our service"
+						end
+					end
+					
+				end
+				
 			end	
 		
 		end
