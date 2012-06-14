@@ -12,6 +12,10 @@ Frameworks/Libs
 Changelog
 ---------
 
+###v.1.1.2
+
+Changed main css file from pure `.css` with crapy comment inclusions to `.scss` with imports
+
 ###v.1.1.1
 
 Added rescues for **ruby-whois** library errors. Now the app won't crash if something goes wrong in the library.

@@ -1,5 +1,5 @@
 Given /^I have queried "(.*?)" domain$/ do |arg1|
-	request = arg1.split('.').reverse.join('/')
+  request = arg1.split('.').reverse.join('/')
   visit("/domains/#{request}")
 end
 
