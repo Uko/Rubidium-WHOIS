@@ -1,4 +1,4 @@
-Rubidium WHOIS [![Build Status](https://secure.travis-ci.org/Uko/Rubidium-WHOIS.png?branch=master)](http://travis-ci.org/Uko/Rubidium-WHOIS)
+Rubidium WHOIS [![Build Status](https://secure.travis-ci.org/Uko/Rubidium-WHOIS.png?branch=master)](http://travis-ci.org/Uko/Rubidium-WHOIS) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/Uko/Rubidium-WHOIS)
 ==============
 
 This is a web application for a whois lookup.
