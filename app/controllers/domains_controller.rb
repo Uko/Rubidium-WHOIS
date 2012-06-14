@@ -32,7 +32,7 @@ class DomainsController < ApplicationController
         redirect_to "/domains/" << domain.downcase.split('.').reverse.join('/')
       else
         flash[:error] = "\"#{domain}\" is not a valid domain name"
-        redirect_to :action => :new, :params => {:domain_request => @dns}
+        redirect_to :action => :new
       end
     end
   end
