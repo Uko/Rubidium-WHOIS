@@ -7,6 +7,7 @@ gem 'haml', '~> 3.1.5'
 group :production do
 	gem 'thin', '~> 1.3.1'
 	gem 'exception_notification', '~> 2.6.1'
+	gem 'newrelic_rpm'
 end
 
 group :assets do
