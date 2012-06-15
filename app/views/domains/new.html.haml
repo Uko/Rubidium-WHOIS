@@ -1,6 +1,6 @@
 %p Use the form below to look up the whois information for a desired domain.
 = form_tag create_domain_path do
-  = text_field_tag "domain_request", "", :class => "span9", :placeholder => "your-domain.com", :id => "domain-input"
+  = text_field_tag "domain_request", @domain, :class => "span9", :placeholder => "your-domain.com", :id => "domain-input"
   = button_tag :class => "btn btn-large btn-primary" do
     %i.icon-search
     Search!

@@ -15,9 +15,13 @@
             - menu_item "Lookup Domain", 'domains', 'new'
     .container
       - if flash.key? :error and not flash[:error].blank?
-        .alert.alert-error
+        #error.alert.alert-error
           %button.close{'data-dismiss' => "alert"} ×
           = flash[:error]
+      - if flash.key? :alert and not flash[:alert].blank?
+        #alert.alert
+          %button.close{'data-dismiss' => "alert"} ×
+          = flash[:alert]
       .row
         .span9
           = yield

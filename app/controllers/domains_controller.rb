@@ -38,6 +38,7 @@ class DomainsController < ApplicationController
   end
 
   def new
+    @domain = params[:domain_request]
   end
 
 end
