@@ -12,15 +12,19 @@ Frameworks/Libs
 Changelog
 ---------
 
-###v.1.1.2
+###v1.1.3
 
-Changed main css file from pure `.css` with crapy comment inclusions to `.scss` with imports
+Added UI part of rescues for **ruby-whois** library errors. Now you get the domain you've reached pre-entered in the search field.
 
-###v.1.1.1
+###v1.1.2
+
+Changed main css file from pure `.css` with crapy comment inclusions to `.scss` with imports.
+
+###v1.1.1
 
 Added rescues for **ruby-whois** library errors. Now the app won't crash if something goes wrong in the library.
 
-###v.1.1.0
+###v1.1.0
 
 Changed contact's representation to accordion instead of tabular. Moved _status_ info before _contacts_. Set non-fluid grid view.
 
