@@ -43,12 +43,12 @@ end
         before(:each) do
           @record = double("Whois::Record", :domain => domain[:plain])
         end
-      
+        
         it "should build '#{domain[:plain]}' from #show, zone=>#{domain[:params][:zone]}, domain=>#{domain[:params][:domain]}" do
           get :show, domain[:params]
           assigns(:dns).should == domain[:plain]
         end
-    
+      
         it "should querry '#{domain[:plain]}'" do
           Whois.should_receive(:query).with(domain[:plain])
           get :show, domain[:params]
@@ -115,13 +115,17 @@ end
             end
           end
           
+          it "returns http success" do
+            get :show, domain[:params]
+            response.should be_success
+          end
+          
         end
         
       end 
     
     end
     
-    it "returns http success"
   end
 
   describe "GET 'new'" do
