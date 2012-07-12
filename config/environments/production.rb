@@ -62,8 +62,12 @@ Whois::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-	config.middleware.use ExceptionNotifier,
-	  :email_prefix => "[RB-Whois] ",
-	  :sender_address => %{"Exception Notifier" <#{ENV['EXCEPTION_SENDER']}>},
-	  :exception_recipients => [ENV['EXCEPTION_RECEPIENT']]
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[RB-Whois] ",
+    :sender_address => %{"Exception Notifier" <#{ENV['EXCEPTION_SENDER']}>},
+    :exception_recipients => [ENV['EXCEPTION_RECEPIENT']]
+    
+  #google analitycs
+  GA.tracker = ENV['ANALYTICS_KEY']
+  
 end
