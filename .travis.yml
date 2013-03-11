@@ -1,3 +1,16 @@
 language: ruby
 rvm: 1.9.3
+secure: "SqwJVkmQ/hf3/Y4JLSdSwE2nxIT7Vyuj3BBRdIDcsOgG5LLfreRbpnFYIAuC\nQ4OPgmBHy2D/BUg9FWQTJ8f5HZ5V0qlBf7yyv8sdATV3USY71MGsoPXviHwK\na7HljM5hWVnPFy8ZhAzXem6F8+pZaftNYGZQgJEYCHKTJyoWP4k="
+
 script: rake travis
+
+after_success:
+  - git checkout gh-pages
+  - cp -rf coverage/* .
+  - git remote set-url origin https://${GH_TOKEN}@github.com/Uko/Rubidium-WHOIS.git > /dev/null
+  - git config --global user.email "travis@travis-ci.org"
+  -	git config --global user.name "Travis"
+  - git add -f .
+  - git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
+  - git push -fq upstream gh-pages > /dev/null
+  - echo -e "Done magic with coverage\n"
