@@ -8,7 +8,7 @@ git config --global user.name "Travis"
 git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/Uko/Rubidium-WHOIS.git  gh-pages > /dev/null
 
 cd gh-pages
-mv $HOME/coverage/* .
+mv -rf $HOME/coverage/* .
 
 git add -f .
 git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
