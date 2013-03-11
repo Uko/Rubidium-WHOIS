@@ -7,4 +7,4 @@ env:
 
 script: rake travis
 
-after_script: .utility/update-gh-pages.sh
+after_success: .utility/update-gh-pages.sh
