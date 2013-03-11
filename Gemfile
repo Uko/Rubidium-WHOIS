@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.3'
-gem 'whois', :git => 'git://github.com/Uko/whois.git'
-gem 'haml', '~> 3.1.5'
+gem 'whois', '~> 2.7.0'
+gem 'haml',  '~> 3.1.5'
 
 group :production do
   gem 'thin', '~> 1.3.1'
