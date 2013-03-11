@@ -1,7 +1,7 @@
 echo -e "Starting to update gh-pages\n"
 
 git fetch -n origin
-git checkout gh-pages
+git checkout -b gh-pages origin/gh-pages
 
 cp -rf coverage/* .
 
